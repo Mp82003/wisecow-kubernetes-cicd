@@ -1,9 +1,9 @@
-
 apiVersion: apps/v1
 kind: Deployment
-
 metadata:
   name: wisecow-deployment
+  labels:
+    app: wisecow
 
 spec:
   replicas: 2
@@ -20,12 +20,12 @@ spec:
     spec:
       containers:
         - name: wisecow
-          image: muskanp/wisecow:c158621f8a57ed5afae5281e300f5e6eb74243e2
-          imagePullPolicy: Never
+          image: muskanp/wisecow:latest
+          imagePullPolicy: Always
 
           ports:
             - containerPort: 4499
-              name: http
+              protocol: TCP
 
           resources:
             requests:
