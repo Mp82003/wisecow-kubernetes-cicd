@@ -1,1 +1,7 @@
 tls/
+
+# Private TLS files
+tls/
+
+# Runtime logs
+logs/*.log
