@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: wisecow
-          image: muskanp/wisecow:6f56f3f29ed0069d6850ca109556670e4298feb5
+          image: muskanp/wisecow:ab0b221210a19187006f5b88b52867bc9372e0dd
           imagePullPolicy: Always
 
           ports:
