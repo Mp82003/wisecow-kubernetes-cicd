@@ -1,9 +1,12 @@
-name: Wisecow CI Pipeline
+name: Wisecow CI/CD Pipeline
 
 on:
   push:
     branches:
       - main
+
+permissions:
+  contents: write
 
 jobs:
   build-and-push:
@@ -30,3 +33,15 @@ jobs:
           tags: |
             muskanp/wisecow:latest
             muskanp/wisecow:${{ github.sha }}
+
+      - name: Update Kubernetes manifest
+        run: |
+          sed -i "s|image: .*|image: muskanp/wisecow:${GITHUB_SHA}|" k8s/deployment.yaml
+
+      - name: Commit and push updated manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add k8s/deployment.yaml
+          git commit -m "Update Wisecow image to ${GITHUB_SHA}" || exit 0
+          git push
